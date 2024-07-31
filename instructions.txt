@@ -1,0 +1,23 @@
+install nextjs
+istall npm components
+
+component folder
+
+layout
+footer
+main
+navbar
+positionholder
+
+walletconnect
+    env
+    config
+    context
+
+ContractUI
+FunctionUIWO
+FunctionUI
+
+
+
+
