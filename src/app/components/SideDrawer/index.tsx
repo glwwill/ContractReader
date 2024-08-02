@@ -1,21 +1,13 @@
 'use client'
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from '@chakra-ui/react'
-import React, { MouseEvent, useState,ChangeEvent,FocusEvent} from 'react';
+import { HamburgerIcon } from '@chakra-ui/icons'
+import {Menu,MenuButton,MenuList,MenuItem,} from '@chakra-ui/react'
+import React from 'react';
 import Link from 'next/link'
 export const SideDrawer = () => {
   return (
     <>
     <Menu>
-  <MenuButton>Open menu</MenuButton>
+  <MenuButton><HamburgerIcon/></MenuButton>
   <MenuList>
     <MenuItem as='a' href='/pages"'>
       Link 1

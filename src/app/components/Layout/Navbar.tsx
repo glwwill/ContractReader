@@ -1,6 +1,5 @@
 'use client'
-import { Box, Container,Flex, Spacer,Heading,ButtonGroup} from "@chakra-ui/react";
-import { PositionHolder } from "./PositionHolder";
+import { Box, Flex, Spacer,Heading,ButtonGroup} from "@chakra-ui/react";
 import { SideDrawer} from "../../components/SideDrawer";
 export const Navbar = () => {
   return (

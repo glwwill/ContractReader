@@ -1,6 +1,9 @@
 install nextjs
 istall npm components
-
+walletconnect
+    env
+    config
+    context
 component folder
 
 layout
@@ -9,14 +12,14 @@ main
 navbar
 positionholder
 
-walletconnect
-    env
-    config
-    context
+
 
 ContractUI
 FunctionUIWO
 FunctionUI
+
+
+Main  
 
 
 

@@ -1,5 +1,6 @@
 import { FC} from 'react'
-import {  Text,Button ,Box,Container,Spinner} from '@chakra-ui/react'
+import {Box,Container,Spinner} from '@chakra-ui/react'
+import {Alert,AlertIcon,AlertTitle,AlertDescription} from '@chakra-ui/react'
 import {  useReadContract } from 'wagmi'
 import { Abi} from 'viem';
 interface ReadingContractWithArgsProps {
@@ -20,18 +21,20 @@ const { data,error,isPending,refetch} = useReadContract({abi,address:contractAdd
   
   if (error)
     return (
-      <div>
-      <Box><div>Error</div></Box>
-     </div>
+      <Alert status='error'>
+      <AlertIcon />
+      <AlertTitle> Function!</AlertTitle>
+      <AlertDescription>Error{error.shortMessage.toString()}</AlertDescription>
+    </Alert>
     )
 
   
 
   return (
-    <>
-    <Box>{isPending && <div><Spinner color='red.500' />loading</div>}</Box>
+    <Container>
+    <Box>{isPending && <><Spinner color='red.500' />loading</>}</Box>
     <Box textAlign="center">Result: {data?.toString()}</Box>
-     </>
+     </Container>
   )
   
 }

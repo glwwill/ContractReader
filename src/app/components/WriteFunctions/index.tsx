@@ -7,7 +7,6 @@ import {useTransactionReceipt,useTransaction,useWaitForTransactionReceipt, type 
 import { Button,Card, CardHeader, CardBody, CardFooter,Heading ,Center,Box} from '@chakra-ui/react'
 import { Abi, Address } from 'viem';
 
-import WatchEvent from "../EventWatcher"
 
 interface Elements {
   name: any

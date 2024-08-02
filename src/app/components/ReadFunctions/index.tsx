@@ -1,10 +1,9 @@
 'use client'
-import { Link, Text,Input, Divider, useToast} from '@chakra-ui/react'
-import {Stack, HStack, VStack ,Spinner} from '@chakra-ui/react'
+import { Input, Divider} from '@chakra-ui/react'
+import { VStack ,Spinner} from '@chakra-ui/react'
 import React, {  useState,FC} from 'react';
-import { useWriteContract,useReadContract} from 'wagmi'
-import {useTransactionReceipt,useTransaction,useWaitForTransactionReceipt, type BaseError} from 'wagmi'
-import { Button,Card, CardHeader, CardBody, CardFooter,Heading ,Center,Box} from '@chakra-ui/react'
+import { Button,Card, CardHeader, CardBody, CardFooter,Heading ,Box,Stack,StackDivider } from '@chakra-ui/react'
+import toast, { Toaster } from 'react-hot-toast';
 import { Abi, Address } from 'viem';
 
 import ReadingContractWithArgs from "../ReadingContract/ReadingContractWithArgs"
@@ -13,7 +12,7 @@ interface Elements {
   name: any
   type: string  
 }
-
+//whichContract arguments or no arguments
 interface ReadFunctionsProps {
  abi:Abi
   contractAddress:Address
@@ -26,14 +25,7 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
   fn
 }) => {
    
-  const toast = useToast()
-  const toastIdRef = React.useRef()
-
-  function close() {
-    if (toastIdRef.current) {
-      toast.close(toastIdRef.current)
-    }
-  }
+  
   
  const initalInputVals:any=fn.inputs.reduce((acc:any,input:any)=>({...acc,...{[input.name]:""}}),{});
  const [InputVals, setInputVals] = useState<any>('');
@@ -47,13 +39,9 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
    setInputVals({...InputVals,...{[inPutName]:newValue.target.value}})
 };
 
-
-  
-   //
-  
-      const returnType = (conditionA:string) => {
+const returnType = (conditionA:string) => {
         conditionA=conditionA.toLowerCase();
-        
+        //array return type
         if (conditionA.includes(']')) {
         return "text";
       } else if (conditionA.includes('uint')) {
@@ -64,17 +52,11 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
     }
 
       const FetchContract = (fname:string,args:number,contractType:number) => {
+       
         const argnumber:number=[...Object.values(InputVals)].length
         if(args!==argnumber){
-          //alert("must fill in all fields")
 
-          toast({
-            title: 'Input error',
-            description: "must fill in all fields.",
-            status: 'warning',
-            duration: 9000,
-            isClosable: true,
-          })
+          toast.error('Must Fill In All Fields.');
           return
         }
      if(contractType==2){
@@ -82,9 +64,6 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
      }
      setWhichContract(contractType)
      setFunctionName(fname)
-     //alert([...Object.values(InputVals)])
-     
-      //alert(argnumber)
        
        }
   
@@ -100,6 +79,7 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
   
  {fn.inputs.map((input:Elements )=>(
  <CardBody key={fn.name}>
+  <Stack divider={<StackDivider />} spacing='4'></Stack>
 <text>
 <Input
  colorScheme='orange' 
@@ -108,16 +88,14 @@ name={input.name}
 value={InputVals[input.name]}
 placeholder={input.type}
 onChange={newValue=>UpdateInputVal(input.name,newValue)}
-/><></>
+/>
 </text>
 </CardBody>
   ))}
    <CardFooter>
-<VStack spacing={4} align='center'>
-
+<VStack spacing={6} align='center'>
 <text>
 {fn.inputs.length==0? <>
- 
  <Box textAlign="center">
   { whichContract===1? <ReadingContract  abi={abi}
   functionName={functionName}
@@ -128,11 +106,9 @@ onChange={newValue=>UpdateInputVal(input.name,newValue)}
   <Button colorScheme='blue' onClick={() =>FetchContract(fn.name,fn.inputs.length,1) }>  Submit</Button>
   </Box>
   </>
-
-  :
-  <>
-  
-  <Box textAlign="center"> 
+:
+<>
+<Box textAlign="center"> 
 { whichContract===2 ? 
   <ReadingContractWithArgs  abi={abi}
   functionName={functionName}
@@ -148,6 +124,23 @@ onChange={newValue=>UpdateInputVal(input.name,newValue)}
  }
 </text>  
  </VStack>    
+         
+<Toaster
+  toastOptions={{
+    success: {
+      style: {
+        border: '1px solid #713200',
+        background: 'green',
+      },
+    },
+    error: {
+      style: {
+        border: '1px solid #713200',
+        background: 'red',
+      },
+    },
+  }}
+/>
 </CardFooter>
 </Card>
 <p>
