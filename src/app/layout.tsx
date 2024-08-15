@@ -1,3 +1,4 @@
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
@@ -14,10 +15,6 @@ export const metadata: Metadata = {
 }
 
 
-
-
-
-//export default function RootLayout(props: { children: React.ReactNode }) {
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   const initialState = cookieToInitialState(config, headers().get('cookie'))
   return (

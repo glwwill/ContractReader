@@ -1,3 +1,4 @@
+'use client'
 import { FC} from 'react'
 import { Box,Container,Spinner} from '@chakra-ui/react'
 import {Alert,AlertIcon,AlertTitle,AlertDescription} from '@chakra-ui/react'
