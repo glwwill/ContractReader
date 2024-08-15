@@ -1,0 +1,37 @@
+
+PS C:\Users\Gary\Documents\projects\ContractReader> npm info output
+
+output@0.0.0 | BSD-2-Clause | deps: none | versions: 1
+
+dist
+.tarball: https://registry.npmjs.org/output/-/output-0.0.0.tgz
+.shasum: 9e9557e87d75a81fcf6550c0587943ee3888be31
+.integrity: sha512-CYFwTmEYHFP4xIxavT96bp+eStzUSYghJcqs9XsT05m3WZ5Gce088IqRoFFoHrIBRJLaC5qcQPI2pX9pqRn6Bg==
+
+maintainers:
+- yuanyan <yuanyan.cao@gmail.com>
+
+dist-tags:
+latest: 0.0.0
+
+npm run build output
+npx next build --help
+
+ npx next build --help
+Usage: next build [directory] [options]
+
+Creates an optimized production build of your application. The output displays information about each route.
+
+Arguments:
+  [directory]                        A directory on which to build the application. If no directory is provided, the current directory will be used.
+
+Options:
+  -d, --debug                        Enables a more verbose build output.
+  --no-lint                          Disables linting.
+  --no-mangling                      Disables mangling.
+  --profile                          Enables production profiling for React.
+  --experimental-app-only            Builds only App Router routes.
+  --experimental-build-mode [mode]   Uses an experimental build mode. (choices: "compile", "generate", default: "default")
+  --experimental-debug-memory-usage  Enables memory profiling features to debug memory consumption.
+  -h, --help                         Displays this message.
+PS C:\Users\Gary\Documents\projects\ContractReader> 

@@ -1,6 +1,6 @@
 'use client'
 import { Box, Flex, Spacer,Heading,ButtonGroup} from "@chakra-ui/react";
-import { SideDrawer} from "../../components/SideDrawer";
+import { SideDrawer} from "../SideDrawer";
 export const Navbar = () => {
   return (
   <Flex  minWidth='max-content' alignItems='center' gap='2'  as="nav" role="navigation" bg="#5F6E0C">
