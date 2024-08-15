@@ -32,7 +32,7 @@ const { data,error,isPending,refetch} = useReadContract({abi,address:contractAdd
 
   return (
     <Container>
-    <Box>{isPending && <><Spinner color='red.500' />loading</>}</Box>
+    <Box>{isPending && <Spinner color='red.500' />}</Box>
     <Box textAlign="center">Result: {data?.toString()}</Box>
      </Container>
   )

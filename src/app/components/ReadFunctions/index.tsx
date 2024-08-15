@@ -31,9 +31,9 @@ const  ReadFunctions: FC<ReadFunctionsProps> = ({
  const [InputVals, setInputVals] = useState<any>('');
  const [functionName, setFunctionName] = useState<string>('');
  const [whichContract, setWhichContract] = useState<number>(0);
+ const [submited, setSubmited] = useState<boolean>(false);
 
  const [functionArgs, setFunctionArgs] = useState<any>([]);
-  
 
  const UpdateInputVal=(inPutName:any,newValue:any)=>{
    setInputVals({...InputVals,...{[inPutName]:newValue.target.value}})
@@ -52,7 +52,7 @@ const returnType = (conditionA:string) => {
     }
 
       const FetchContract = (fname:string,args:number,contractType:number) => {
-       
+        setSubmited(true)
         const argnumber:number=[...Object.values(InputVals)].length
         if(args!==argnumber){
 
@@ -64,7 +64,7 @@ const returnType = (conditionA:string) => {
      }
      setWhichContract(contractType)
      setFunctionName(fname)
-       
+     setSubmited(true)
        }
   
   return (
@@ -103,7 +103,7 @@ onChange={newValue=>UpdateInputVal(input.name,newValue)}
 : ""}
  </Box>
  <Box textAlign="center">
-  <Button colorScheme='blue' onClick={() =>FetchContract(fn.name,fn.inputs.length,1) }>  Submit</Button>
+  <Button colorScheme='blue'  onClick={() =>FetchContract(fn.name,fn.inputs.length,1) }>  Submit</Button>
   </Box>
   </>
 :
@@ -118,7 +118,7 @@ onChange={newValue=>UpdateInputVal(input.name,newValue)}
 }
 </Box>
   <Box textAlign="center">
-  <Button colorScheme='blue' onClick={() =>FetchContract(fn.name,fn.inputs.length,2) }>  Submit</Button>
+  <Button colorScheme='blue'  onClick={() =>FetchContract(fn.name,fn.inputs.length,2) }>  Submit</Button>
   </Box>
   </>
  }

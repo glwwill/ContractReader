@@ -9,7 +9,7 @@ export const SideDrawer = () => {
     <Menu>
   <MenuButton><HamburgerIcon/></MenuButton>
   <MenuList>
-    <MenuItem as='a' href='/pages"'>
+    <MenuItem as='a' href='/pages/ProjectA/'>
       Link 1
     </MenuItem>
     <MenuItem as='a' href='#'>

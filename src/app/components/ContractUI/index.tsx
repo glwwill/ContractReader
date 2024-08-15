@@ -9,17 +9,20 @@ interface JsonAbi{
   name:string 
   inputs:  any[] 
   stateMutability: string
+ 
   }
 
 interface ContractUIProps {
 contractAddress:any
 contractAbi:any
+fn:any
 
  }
-//<WriteFunctions key={fn.name} fn={fn}  abi={contractAbi} contractAddress={contractAddress}/>
+
 const  ContractUI: FC<ContractUIProps> = ({
   contractAddress,
   contractAbi,
+  fn
  }) => {
 
    
@@ -29,7 +32,8 @@ const  ContractUI: FC<ContractUIProps> = ({
    {contractAbi.map((fn:JsonAbi  )=><Container key={fn.name}>
     
  {fn.stateMutability.toLocaleLowerCase().includes("view") ||  fn.stateMutability.toLocaleLowerCase().includes("pure")? 
-  <ReadFunctions key={fn.name} fn={fn}  abi={contractAbi} contractAddress={contractAddress}/>:""
+  <ReadFunctions key={fn.name} fn={fn}  abi={contractAbi} contractAddress={contractAddress}/>:
+  <WriteFunctions key={fn.name} fn={fn}  abi={contractAbi} contractAddress={contractAddress}/>
  }
   <Divider/>
   </Container>

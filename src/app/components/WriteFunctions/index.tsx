@@ -1,8 +1,9 @@
 'use client'
-import { Link, Text,Input, Divider, Spinner } from '@chakra-ui/react'
-import {Stack, HStack, VStack } from '@chakra-ui/react'
+import { Link, Input, Divider, Spinner, Container } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import React, {  useState,FC} from 'react';
-import { useWriteContract,useReadContract} from 'wagmi'
+import { useWriteContract} from 'wagmi'
+import toast, { Toaster } from 'react-hot-toast';
 import {useTransactionReceipt,useTransaction,useWaitForTransactionReceipt, type BaseError} from 'wagmi'
 import { Button,Card, CardHeader, CardBody, CardFooter,Heading ,Center,Box} from '@chakra-ui/react'
 import { Abi, Address } from 'viem';
@@ -28,22 +29,19 @@ const  WriteFunctions: FC<WriteFunctionsProps> = ({
   fn
 }) => {
    
-  const { writeContractAsync, data: hash, writeContract , isPending,error } = useWriteContract()
+  const { writeContractAsync, data: hash, writeContract , isPending,error} = useWriteContract()
   const { isLoading: isConfirming, isSuccess: isConfirmed } =useWaitForTransactionReceipt({hash})
   const {data: transactionDetails} = useTransaction({ hash: hash})
-  
- const initalInputVals:any=fn.inputs.reduce((acc:any,input:any)=>({...acc,...{[input.name]:""}}),{});
- const [InputVals, setInputVals] = useState<any>('');
- //const [functionName, setFunctionName] = useState<string>('');
- //const { data,isLoading,error:dataerror,refetch } =useReadContract({abi:abi,address:contractAddress,functionName: functionName,args: [...Object.values(InputVals)]})
-   
+  const initalInputVals:any=fn.inputs.reduce((acc:any,input:any)=>({...acc,...{[input.name]:""}}),{});
+  const [InputVals, setInputVals] = useState<any>('');
+ 
 
  const UpdateInputVal=(inPutName:any,newValue:any)=>{
    setInputVals({...InputVals,...{[inPutName]:newValue.target.value}})
 };
    const etherscanlink:any ="https://sepolia.etherscan.io/tx/"
   
-   
+  
    const returnType = (conditionA:string) => {
     conditionA=conditionA.toLowerCase();
     
@@ -55,6 +53,26 @@ const  WriteFunctions: FC<WriteFunctionsProps> = ({
     return "text";
   }
 }
+
+const FetchContract = (fname:string,args:number) => {
+
+  const argnumber:number=[...Object.values(InputVals)].length
+  if(args!==argnumber){
+    toast.error('Must Fill In All Fields.');
+    return
+  }
+  writeContract({
+    address: contractAddress,
+    abi,
+    functionName: fname,
+    args: [...Object.values(InputVals)],
+  })
+
+
+
+ }
+
+
  return (
     <>
 
@@ -84,7 +102,9 @@ onChange={newValue=>UpdateInputVal(input.name,newValue)}
   ))}
    <CardFooter>
 <VStack spacing={4} align='center'>
-<Button colorScheme='orange' disabled={isPending} 
+{fn.inputs.length==0? <>
+  <Button colorScheme='orange'  disabled={isPending} onClick={() =>FetchContract(fn.name,fn.inputs.length) }>  Submit</Button>
+</>:<Button colorScheme='orange' disabled={isPending} 
 onClick={() => 
   writeContractAsync({ 
     abi,
@@ -94,7 +114,8 @@ onClick={() =>
 })}
 >
 Submit
-</Button>
+</Button>}
+<Container>
 <text>
 
 
@@ -103,7 +124,24 @@ Submit
 <Box>{error && (
        <div>Error: {(error as BaseError).shortMessage || error.message}</div>
      )}</Box>
-   </text>  
+   </text> 
+   <Toaster
+  toastOptions={{
+    success: {
+      style: {
+        border: '1px solid #713200',
+        background: 'green',
+      },
+    },
+    error: {
+      style: {
+        border: '1px solid #713200',
+        background: 'red',
+      },
+    },
+  }}
+/>
+   </Container>  
  </VStack>    
 </CardFooter>
 </Card>

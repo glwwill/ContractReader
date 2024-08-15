@@ -30,7 +30,7 @@ if (error)
 
   return (
     <Container> 
-    <Box>{isPending && <><Spinner color='red.500' />LOADING</>}</Box>
+    <Box>{isPending && <><Spinner color='red.500' /></>}</Box>
     <Box textAlign="center">Result: {data?.toString()}</Box>
      </Container>
   )
